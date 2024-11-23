@@ -1,7 +1,10 @@
 import Navbar from "@/components/navbar"
-import { ReactNode } from "hono/jsx"
 
-function layout({ children }: { children: ReactNode }) {
+function layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <>
       <Navbar />
