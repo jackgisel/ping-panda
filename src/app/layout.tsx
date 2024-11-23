@@ -1,15 +1,17 @@
 import { Providers } from "@/components/providers"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
-import { EB_Garamond, Inter } from "next/font/google"
+import { Cabin, Epilogue } from "next/font/google"
 
 import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
-const eb_garamond = EB_Garamond({
+const cabin = Cabin({ subsets: ["latin"], variable: "--font-sans" })
+const spaceGrotesk = Epilogue({
   subsets: ["latin"],
+  weight: "900",
   variable: "--font-heading",
+  style: "italic",
 })
 
 export const metadata: Metadata = {
@@ -25,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={cn(inter.variable, eb_garamond.variable)}>
+      <html lang="en" className={cn(cabin.variable, spaceGrotesk.variable)}>
         <body className="font-sans bg-brand-50 text-brand-950 antialiased">
           <Providers>{children}</Providers>
         </body>
