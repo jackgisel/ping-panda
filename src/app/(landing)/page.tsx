@@ -1,9 +1,11 @@
 import { Check } from "lucide-react"
 
+import { DiscordMessage } from "@/components/discord-message"
 import { Heading } from "@/components/heading"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { MockDiscordUi } from "@/components/mock-discord-ui"
 import ShinyButton from "@/components/shiny-button"
+import { AnimatedList } from "@/components/ui/animated-list"
 
 export default function HomePage() {
   return (
@@ -57,7 +59,49 @@ export default function HomePage() {
         <div className="relative mx-auto">
           <MaxWidthWrapper className="relative">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-              <MockDiscordUi />
+              <MockDiscordUi>
+                <AnimatedList>
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avaterAlt="PingPanda avatar"
+                    username="PingPanda"
+                    timestamp="Today at 11:34am"
+                    badgeText="Revenue"
+                    badgeColor="#43b581"
+                    title="🏋️ MRR Aquired"
+                    content={{
+                      name: "Jon Snow",
+                      email: "therealtargerayan@gmail.com",
+                    }}
+                  />
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avaterAlt="PingPanda avatar"
+                    username="PingPanda"
+                    timestamp="Today at 11:57am"
+                    badgeText="Revenue"
+                    badgeColor="#43b581"
+                    title="🏋️ MRR Aquired"
+                    content={{
+                      name: "Jake Peralta",
+                      email: "goodcop@cox.net",
+                    }}
+                  />
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avaterAlt="PingPanda avatar"
+                    username="PingPanda"
+                    timestamp="Today at 11:59am"
+                    badgeText="Sign Up"
+                    badgeColor="#faa61a"
+                    title="👦 New User"
+                    content={{
+                      name: "Amy Santiago",
+                      email: "amy.santiago@gmail.com",
+                    }}
+                  />
+                </AnimatedList>
+              </MockDiscordUi>
             </div>
           </MaxWidthWrapper>
         </div>
