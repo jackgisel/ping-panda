@@ -15,8 +15,8 @@ const spaceGrotesk = Epilogue({
 })
 
 export const metadata: Metadata = {
-  title: "jStack App",
-  description: "Created using jStack",
+  title: "PingPanda",
+  description: "Admin notifications for your SaaS",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 }
 
