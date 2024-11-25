@@ -1,12 +1,31 @@
-import { Check } from "lucide-react"
+import { Check, Star } from "lucide-react"
 
 import { DiscordMessage } from "@/components/discord-message"
 import { Heading } from "@/components/heading"
+import { Icons } from "@/components/icons"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { MockDiscordUi } from "@/components/mock-discord-ui"
 import ShinyButton from "@/components/shiny-button"
 import { AnimatedList } from "@/components/ui/animated-list"
 import Image from "next/image"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
+const codeExample = `await fetch("http://localhost:3000/api/v1/events", {
+  method: "POST",
+  body: JSON.stringify({
+    category: "sale",
+    fields: {
+      plan: "PRO",
+      email: "zoe.martinez2001@email.com",
+      amount: 49.00
+    }
+  }),
+  headers: {
+    Authorization: "Bearer <YOUR_API_KEY>"
+  }
+})
+`
 
 export default function HomePage() {
   return (
@@ -227,6 +246,28 @@ export default function HomePage() {
                         </div>
                       </div>
                     </div>
+
+                    <div className="overflow-hidden">
+                      <div className="max-h-[30rem]">
+                        <SyntaxHighlighter
+                          style={{
+                            ...oneDark,
+                            'pre[class*="language-"]': {
+                              ...oneDark['pre[class*="language-"]'],
+                              background: "transparent",
+                              overflow: "hidden",
+                            },
+                            'code[class*="language-"]': {
+                              ...oneDark['code[class*="language-"]'],
+                              background: "transparent",
+                            },
+                          }}
+                          language="typescript"
+                        >
+                          {codeExample}
+                        </SyntaxHighlighter>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -236,7 +277,86 @@ export default function HomePage() {
           </div>
         </MaxWidthWrapper>
       </section>
-      <section></section>
+      <section className="relative py-24 sm:py-32 bg-white">
+        <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
+          <div>
+            <h2 className="text-center text-base/7 font-semibold text-brand-600">
+              Real World Experiences
+            </h2>
+            <Heading className="text-center">What our customers say</Heading>
+          </div>
+
+          <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:divide-y-0 lg:divide-x divide-gray-200">
+            {/* first customer review */}
+            <div className="flex flex-auto flex-col gap-4 bg-brand-25 p-6 sm:p-8 lg:p-16 rounded-t-[2rem] lg:rounded-tr-none lg:rounded-l-[2rem]">
+              <div className="flex gap-0.5 mb-2 justify-center lg:justify-start">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-5 text-brand-600 fill-brand-600"
+                  />
+                ))}
+              </div>
+
+              <p className="text-base sm-:text-lg lg:text-lg/8 font-medium tracking-tight text-brand-950 text-center lg:text-left text-pretty">
+                PingPanda has been a game changer for my business. I no longer
+                am writing integrations by hand and are saving time.
+              </p>
+
+              <div className="flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
+                <Image
+                  src="/user-2.png"
+                  className="rounded-full object-cover"
+                  alt="Random User"
+                  width={48}
+                  height={48}
+                />
+                <div className="flex flex-col items-center sm:items-start">
+                  <p className="font-semibold flex items-center">
+                    Freya Larson
+                    <Icons.verificationBadge className="size-4 inline-block ml-1.5" />
+                  </p>
+                  <p className="text-sm text-gray-600">@itsfreya</p>
+                </div>
+              </div>
+            </div>
+
+            {/* second customer review */}
+            <div className="flex flex-auto flex-col gap-4 bg-brand-25 p-6 sm:p-8 lg:p-16 rounded-b-[2rem] lg:rounded-bl-none lg:rounded-r-[2rem]">
+              <div className="flex gap-0.5 mb-2 justify-center lg:justify-start">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-5 text-brand-600 fill-brand-600"
+                  />
+                ))}
+              </div>
+
+              <p className="text-base sm-:text-lg lg:text-lg/8 font-medium tracking-tight text-brand-950 text-center lg:text-left text-pretty">
+                This app rocks. I really enjoy getting these notifications while
+                I am out and AFK.
+              </p>
+
+              <div className="flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
+                <Image
+                  src="/user-1.png"
+                  className="rounded-full object-cover"
+                  alt="Random User"
+                  width={48}
+                  height={48}
+                />
+                <div className="flex flex-col items-center sm:items-start">
+                  <p className="font-semibold flex items-center">
+                    Jason Bju
+                    <Icons.verificationBadge className="size-4 inline-block ml-1.5" />
+                  </p>
+                  <p className="text-sm text-gray-600">@jbju</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
     </>
   )
 }
