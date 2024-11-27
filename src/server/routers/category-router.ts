@@ -21,7 +21,7 @@ export const categoryRouter = router({
       },
     })
 
-    const categoriesWithCounts = await Promise.all([
+    const categoriesWithCounts = await Promise.all(
       categories.map(async (category) => {
         const now = new Date()
         const firstDayOfMonth = startOfMonth(now)
@@ -70,8 +70,8 @@ export const categoryRouter = router({
           eventsCount,
           lastPing: lastPing?.createdAt || null,
         }
-      }),
-    ])
+      })
+    )
 
     return c.superjson({
       categories: categoriesWithCounts,
