@@ -3,6 +3,7 @@ import { router } from "../__internals/router"
 import { privateProcedure } from "../procedures"
 
 import { startOfMonth } from "date-fns"
+import { z } from "zod"
 
 export const categoryRouter = router({
   getEventCategories: privateProcedure.query(async ({ c, ctx }) => {
@@ -77,4 +78,19 @@ export const categoryRouter = router({
       categories: categoriesWithCounts,
     })
   }),
+  delete: privateProcedure
+    .input(
+      z.object({
+        name: z.string(),
+      })
+    )
+    .mutation(async ({ c, ctx, input }) => {
+      const { name } = input
+
+      await db.eventCategory.delete({
+        where: { name_userId: { name, userId: ctx.user.id } },
+      })
+
+      return c.json({ success: true })
+    }),
 })

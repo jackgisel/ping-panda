@@ -22,7 +22,7 @@ const Page = async () => {
   }
 
   return (
-    <DashboardPage title="Dashboard">
+    <DashboardPage title="Dashboard" hideBackButton>
       <DashboardPageContent />
     </DashboardPage>
   )
