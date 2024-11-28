@@ -2,6 +2,8 @@ import { db } from "@/db"
 import { router } from "../__internals/router"
 import { privateProcedure } from "../procedures"
 
+import { parseColor } from "@/lib/utils"
+import { EVENT_CATEGORY_VALIDATOR } from "@/lib/validators/category-validator"
 import { startOfMonth } from "date-fns"
 import { z } from "zod"
 
@@ -92,5 +94,24 @@ export const categoryRouter = router({
       })
 
       return c.json({ success: true })
+    }),
+  create: privateProcedure
+    .input(EVENT_CATEGORY_VALIDATOR)
+    .mutation(async ({ c, ctx, input }) => {
+      const { user } = ctx
+      const { color, name, emoji } = input
+
+      // TODO: ADD PAID PLAN LOGIC TO LIMIT CATEGORIES
+
+      const eventCategory = await db.eventCategory.create({
+        data: {
+          name: name.toLowerCase(),
+          color: parseColor(color),
+          emoji,
+          userId: user.id,
+        },
+      })
+
+      return c.json({ eventCategory })
     }),
 })

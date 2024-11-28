@@ -1,6 +1,9 @@
+import { CreateEventCategoryModal } from "@/components/create-event-category-modal"
 import { DashboardPage } from "@/components/dashboard-page"
+import { Button } from "@/components/ui/button"
 import { db } from "@/db"
 import { currentUser } from "@clerk/nextjs/server"
+import { PlusIcon } from "lucide-react"
 import { redirect } from "next/navigation"
 import { DashboardPageContent } from "./dashboard-page-content"
 
@@ -22,7 +25,18 @@ const Page = async () => {
   }
 
   return (
-    <DashboardPage title="Dashboard" hideBackButton>
+    <DashboardPage
+      title="Dashboard"
+      hideBackButton
+      cta={
+        <CreateEventCategoryModal>
+          <Button>
+            <PlusIcon className="size-4 mr-2 " />
+            Add Category
+          </Button>
+        </CreateEventCategoryModal>
+      }
+    >
       <DashboardPageContent />
     </DashboardPage>
   )
