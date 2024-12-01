@@ -3,8 +3,12 @@ import { router } from "../__internals/router"
 import { privateProcedure } from "../procedures"
 
 import { parseColor } from "@/lib/utils"
-import { EVENT_CATEGORY_VALIDATOR } from "@/lib/validators/category-validator"
+import {
+  CATEGORY_NAME_VALIDATOR,
+  EVENT_CATEGORY_VALIDATOR,
+} from "@/lib/validators/category-validator"
 import { startOfMonth } from "date-fns"
+import { HTTPException } from "hono/http-exception"
 import { z } from "zod"
 
 export const categoryRouter = router({
@@ -140,4 +144,37 @@ export const categoryRouter = router({
 
     return c.json({ success: true, count: categories.count })
   }),
+  pollCategory: privateProcedure
+    .input(z.object({ name: CATEGORY_NAME_VALIDATOR }))
+    .query(async ({ c, ctx, input }) => {
+      const { name } = input
+
+      const category = await db.eventCategory.findUnique({
+        where: {
+          name_userId: {
+            name,
+            userId: ctx.user.id,
+          },
+        },
+        include: {
+          _count: {
+            select: {
+              events: true,
+            },
+          },
+        },
+      })
+
+      if (!category) {
+        throw new HTTPException(404, {
+          message: `Category ${name} not found`,
+        })
+      }
+
+      const hasEvents = category._count.events > 0
+
+      return c.json({
+        hasEvents,
+      })
+    }),
 })
