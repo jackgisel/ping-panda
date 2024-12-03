@@ -126,7 +126,6 @@ export const CategoryPageContent = ({
           : activeTab === "week"
           ? sums.thisWeek
           : sums.thisMonth
-
       return (
         <Card key={field}>
           <div className="flex flex-row items-center justify-between space-y-2 pb-2">
@@ -137,9 +136,8 @@ export const CategoryPageContent = ({
           </div>
 
           <div>
-            <p className="text-2xl font-bold">{data?.eventsCount || 0}</p>
+            <p className="text-2xl font-bold">{relevantSum.toFixed(2)}</p>
             <p className="text-xs/5 text-muted-foreground">
-              Events{" "}
               {activeTab === "today"
                 ? "today"
                 : activeTab === "week"
