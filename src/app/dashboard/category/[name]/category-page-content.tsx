@@ -37,11 +37,6 @@ export const CategoryPageContent = ({
     initialData: { hasEvents: initialHasEvents },
   })
 
-  if (!pollingData.hasEvents) {
-    return <EmptyCategoryState categoryName={category.name} />
-  }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, isFetching } = useQuery({
     queryKey: [
       "events",
@@ -84,6 +79,8 @@ export const CategoryPageContent = ({
     data.events.forEach((event) => {
       const eventDate = event.createdAt
 
+      console.log(event.fields)
+
       Object.entries(event.fields as object).forEach(([field, value]) => {
         if (typeof value === "number") {
           if (!sums[field]) {
@@ -116,7 +113,11 @@ export const CategoryPageContent = ({
     return sums
   }, [data?.events])
 
-  const NumericFieldSumsCards = () => {
+  if (!pollingData.hasEvents) {
+    return <EmptyCategoryState categoryName={category.name} />
+  }
+
+  const NumericFieldSumCards = () => {
     if (Object.keys(numericFieldSums).length === 0) return null
 
     return Object.entries(numericFieldSums).map(([field, sums]) => {
@@ -126,9 +127,10 @@ export const CategoryPageContent = ({
           : activeTab === "week"
           ? sums.thisWeek
           : sums.thisMonth
+
       return (
         <Card key={field}>
-          <div className="flex flex-row items-center justify-between space-y-2 pb-2">
+          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
             <p className="text-sm/6 font-medium">
               {field.charAt(0).toUpperCase() + field.slice(1)}
             </p>
@@ -185,7 +187,7 @@ export const CategoryPageContent = ({
               </div>
             </Card>
 
-            <NumericFieldSumsCards />
+            <NumericFieldSumCards />
           </div>
         </TabsContent>
       </Tabs>

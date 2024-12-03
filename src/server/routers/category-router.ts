@@ -204,15 +204,20 @@ export const categoryRouter = router({
           break
       }
 
+      console.log({
+        page,
+        limit,
+      })
+
       const [events, eventsCount, uniqueFieldCount] = await Promise.all([
         db.event.findMany({
           where: {
             eventCategory: {
               name,
               userId: ctx.user.id,
-              createdAt: {
-                gte: startDate,
-              },
+            },
+            createdAt: {
+              gte: startDate,
             },
           },
           skip: (page - 1) * limit,
@@ -256,6 +261,8 @@ export const categoryRouter = router({
             return fieldNames.size
           }),
       ])
+
+      console.log(events)
 
       return c.superjson({
         events,
