@@ -37,7 +37,7 @@ async function Navbar() {
             ) : (
               <>
                 <Link
-                  href="/#pricing"
+                  href="/pricing"
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",
