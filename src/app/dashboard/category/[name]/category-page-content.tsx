@@ -46,7 +46,7 @@ export const CategoryPageContent = ({
     "today"
   )
   const page = parseInt(searchParams.get("page") || "1", 10)
-  const limit = parseInt(searchParams.get("limit") || "30", 10)
+  const limit = parseInt(searchParams.get("limit") || "50", 10)
 
   const [pagination, setPagination] = useState({
     pageIndex: page - 1,
