@@ -1,6 +1,7 @@
 import { QUOTAS } from "@/config"
 import { db } from "@/db"
 import { addMonths, startOfMonth } from "date-fns"
+import { z } from "zod"
 import { router } from "../__internals/router"
 import { privateProcedure } from "../procedures"
 
@@ -38,4 +39,21 @@ export const projectRouter = router({
       resetDate,
     })
   }),
+  setDiscordId: privateProcedure
+    .input(
+      z.object({
+        discordId: z.string().max(20),
+      })
+    )
+    .mutation(async ({ c, ctx, input }) => {
+      const { user } = ctx
+      const { discordId } = input
+
+      await db.user.update({
+        where: { id: user.id },
+        data: { discordId },
+      })
+
+      return c.json({ success: true })
+    }),
 })
