@@ -11,7 +11,7 @@ import { Modal } from "./ui/modal"
 
 export const PaymentSuccessModal = () => {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   const { data, isPending } = useQuery({
     queryKey: ["user-plan"],
