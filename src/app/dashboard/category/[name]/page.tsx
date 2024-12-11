@@ -5,12 +5,13 @@ import { notFound } from "next/navigation"
 import { CategoryPageContent } from "./category-page-content"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     name: string | string[] | undefined
-  }
+  }>
 }
 
-const Page = async ({ params }: PageProps) => {
+const Page = async (props: PageProps) => {
+  const params = await props.params;
   if (typeof params.name !== "string") return notFound()
 
   const auth = await currentUser()
