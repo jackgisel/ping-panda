@@ -10,12 +10,13 @@ import { redirect } from "next/navigation"
 import { DashboardPageContent } from "./dashboard-page-content"
 
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string | string[] | undefined
-  }
+  }>
 }
 
-const Page = async ({ searchParams }: PageProps) => {
+const Page = async (props: PageProps) => {
+  const searchParams = await props.searchParams;
   const intent = searchParams.intent
   const auth = await currentUser()
 
